@@ -27,17 +27,17 @@ jobs:
           npm ci
           npm run build
 
-      # 4. Zip the contents of dist/ directory into extension.zip
+      # 4. Zip the contents of dist/ directory into reqcraft-http-request-tool.zip
       - name: Zip dist directory
         run: |
           cd dist
-          zip -r ../extension.zip .
+          zip -r ../reqcraft-http-request-tool.zip .
 
-      # 5. Automatically create GitHub Release and attach extension.zip
+      # 5. Automatically create GitHub Release and attach reqcraft-http-request-tool.zip
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: extension.zip
+          files: reqcraft-http-request-tool.zip
           name: Release ${{ github.ref_name }}
           draft: false
           prerelease: false
