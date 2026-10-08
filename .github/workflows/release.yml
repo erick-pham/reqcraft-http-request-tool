@@ -1,0 +1,45 @@
+name: Build & Release Chrome Extension
+
+on:
+  push:
+    tags:
+      - "v*" # Trigger automatically when pushing tags starting with 'v' (e.g. v1.0.0, v1.0.1)
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Check out latest code from repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Set up Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      # 3. Install dependencies and build project
+      - name: Install dependencies & Build
+        run: |
+          npm ci
+          npm run build
+
+      # 4. Zip the contents of dist/ directory into extension.zip
+      - name: Zip dist directory
+        run: |
+          cd dist
+          zip -r ../extension.zip .
+
+      # 5. Automatically create GitHub Release and attach extension.zip
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: extension.zip
+          name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
