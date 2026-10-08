@@ -187,3 +187,10 @@ export const IconExternal: React.FC<IconProps> = ({ size = 16, className = '' })
     <line x1="10" y1="14" x2="21" y2="3" />
   </svg>
 );
+
+export const IconPill: React.FC<IconProps> = ({ size = 16, className = '' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <rect x="3" y="7" width="18" height="10" rx="5" />
+    <circle cx="8" cy="12" r="2" fill="currentColor" />
+  </svg>
+);

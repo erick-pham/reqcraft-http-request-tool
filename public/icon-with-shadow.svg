@@ -1,29 +1,190 @@
-<svg width="585" height="585" viewBox="0 0 585 585" fill="none" xmlns="http://www.w3.org/2000/svg">
-<mask id="mask0_2_13" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="585" height="585">
-<path d="M585 292.5C585 454.043 454.043 585 292.5 585C130.957 585 0 454.043 0 292.5C0 130.957 130.957 0 292.5 0C454.043 0 585 130.957 585 292.5Z" fill="url(#paint0_radial_2_13)"/>
-</mask>
-<g mask="url(#mask0_2_13)">
-<path d="M585 292.5C585 454.043 454.043 585 292.5 585C130.957 585 0 454.043 0 292.5C0 130.957 130.957 0 292.5 0C454.043 0 585 130.957 585 292.5Z" fill="url(#paint1_linear_2_13)"/>
-</g>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M281 182C308.614 182 331 159.614 331 132L401 132C417.569 132 431 145.431 431 162V232.158C456.744 234.195 477 255.732 477 282C477 308.268 456.744 329.805 431 331.842V402C431 418.569 417.569 432 401 432H331C331 459.614 308.614 482 281 482C253.386 482 231 459.614 231 432H161C144.431 432 131 418.569 131 402L131 332C158.614 332 181 309.614 181 282C181 254.386 158.614 232 131 232L131 162C131 145.431 144.431 132 161 132L231 132C231 159.614 253.386 182 281 182Z" fill="url(#paint2_linear_2_13)"/>
-<path d="M364.115 102.193L234.791 127.497C232.666 127.913 231.092 129.712 230.964 131.871L223.009 266.034C222.821 269.194 225.728 271.647 228.816 270.936L264.822 262.638C268.191 261.862 271.235 264.825 270.543 268.208L259.845 320.515C259.125 324.035 262.435 327.046 265.878 326.001L288.117 319.254C291.565 318.209 294.877 321.228 294.148 324.751L277.148 406.914C276.084 412.053 282.93 414.856 285.785 410.449L287.692 407.507L393.073 197.505C394.838 193.989 391.795 189.98 387.927 190.725L350.865 197.867C347.382 198.538 344.419 195.299 345.402 191.897L369.592 108.161C370.576 104.753 367.602 101.511 364.115 102.193Z" fill="url(#paint3_linear_2_13)"/>
-<defs>
-<radialGradient id="paint0_radial_2_13" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(292.958 292.042) rotate(90) scale(292.958 292.958)">
-<stop/>
-<stop offset="1" stop-opacity="0"/>
-</radialGradient>
-<linearGradient id="paint1_linear_2_13" x1="216.056" y1="140.528" x2="477.969" y2="374.671" gradientUnits="userSpaceOnUse">
-<stop stop-color="#41D1FF"/>
-<stop offset="1" stop-color="#BD34FE"/>
-</linearGradient>
-<linearGradient id="paint2_linear_2_13" x1="116.5" y1="223" x2="414.5" y2="482" gradientUnits="userSpaceOnUse">
-<stop stop-color="#41D1FF"/>
-<stop offset="1" stop-color="#BD34FE"/>
-</linearGradient>
-<linearGradient id="paint3_linear_2_13" x1="270.74" y1="109.063" x2="309.973" y2="378.586" gradientUnits="userSpaceOnUse">
-<stop stop-color="#FFEA83"/>
-<stop offset="0.0833333" stop-color="#FFDD35"/>
-<stop offset="1" stop-color="#FFA800"/>
-</linearGradient>
-</defs>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Outer Drop Shadows -->
+    <filter id="app-shadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="20" stdDeviation="28" flood-color="#020617" flood-opacity="0.75" />
+      <feDropShadow dx="0" dy="4" stdDeviation="12" flood-color="#38bdf8" flood-opacity="0.25" />
+    </filter>
+
+    <!-- Neon Glow Filter -->
+    <filter id="neon-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="soft-glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="10" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Background Gradients -->
+    <linearGradient id="bg-grad" x1="60" y1="40" x2="450" y2="470" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="50%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+
+    <!-- Squircle Border Metallic Gradient -->
+    <linearGradient id="border-grad" x1="40" y1="40" x2="472" y2="472" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.9" />
+      <stop offset="40%" stop-color="#818cf8" stop-opacity="0.5" />
+      <stop offset="70%" stop-color="#c084fc" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.4" />
+    </linearGradient>
+
+    <!-- Ambient Radials -->
+    <radialGradient id="radial-cyan" cx="200" cy="200" r="180" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0" />
+    </radialGradient>
+
+    <radialGradient id="radial-purple" cx="320" cy="310" r="170" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#a855f7" stop-opacity="0.32" />
+      <stop offset="100%" stop-color="#a855f7" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Request Stream Gradient (Cyan to Sky) -->
+    <linearGradient id="req-cyan-grad" x1="140" y1="360" x2="340" y2="150" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="45%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#22d3ee" />
+    </linearGradient>
+
+    <!-- Response / Routing Gradient (Violet to Indigo) -->
+    <linearGradient id="res-purple-grad" x1="220" y1="240" x2="370" y2="370" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#c084fc" />
+      <stop offset="55%" stop-color="#a855f7" />
+      <stop offset="100%" stop-color="#6366f1" />
+    </linearGradient>
+
+    <!-- Loop Accent Gradient -->
+    <linearGradient id="loop-grad" x1="180" y1="140" x2="350" y2="260" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="50%" stop-color="#818cf8" />
+      <stop offset="100%" stop-color="#c084fc" />
+    </linearGradient>
+
+    <!-- Node Glow -->
+    <radialGradient id="node-cyan" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="40%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0" />
+    </radialGradient>
+
+    <radialGradient id="node-violet" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="40%" stop-color="#c084fc" />
+      <stop offset="100%" stop-color="#c084fc" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Base Icon Card with Shadow -->
+  <g filter="url(#app-shadow)">
+    <!-- Squircle Body -->
+    <rect x="44" y="44" width="424" height="424" rx="100" fill="url(#bg-grad)" stroke="url(#border-grad)" stroke-width="3.5" />
+    
+    <!-- Inner Ambient Lighting -->
+    <rect x="44" y="44" width="424" height="424" rx="100" fill="url(#radial-cyan)" />
+    <rect x="44" y="44" width="424" height="424" rx="100" fill="url(#radial-purple)" />
+  </g>
+
+  <!-- Cybernetic Grid / Circuit Orbits -->
+  <g opacity="0.45">
+    <!-- Outer dashed orbit -->
+    <circle cx="256" cy="256" r="165" fill="none" stroke="#38bdf8" stroke-width="1.8" stroke-dasharray="6 10" />
+    <!-- Inner subtle orbit -->
+    <circle cx="256" cy="256" r="128" fill="none" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="4 8" opacity="0.6" />
+    <!-- Horizontal guide track -->
+    <line x1="90" y1="256" x2="135" y2="256" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" opacity="0.5" />
+    <line x1="377" y1="256" x2="422" y2="256" stroke="#c084fc" stroke-width="2" stroke-linecap="round" opacity="0.5" />
+    <!-- Vertical guide track -->
+    <line x1="256" y1="90" x2="256" y2="135" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" opacity="0.5" />
+    <line x1="256" y1="377" x2="256" y2="422" stroke="#818cf8" stroke-width="2" stroke-linecap="round" opacity="0.5" />
+  </g>
+
+  <!-- Glow Layers for Main Emblem -->
+  <g filter="url(#soft-glow)" opacity="0.6">
+    <!-- Glowing R Loop Path -->
+    <path d="M 168 358 L 168 180 C 168 145 200 135 242 135 C 298 135 342 160 342 208 C 342 250 302 272 250 272 L 168 272" 
+          fill="none" stroke="url(#loop-grad)" stroke-width="28" stroke-linecap="round" stroke-linejoin="round" />
+    <!-- Glowing Diagonal Leg -->
+    <path d="M 245 272 L 338 358" 
+          fill="none" stroke="url(#res-purple-grad)" stroke-width="28" stroke-linecap="round" />
+  </g>
+
+  <!-- Core Sharp Emblem Shape (ReqCraft "R" made of Network Request & Response Flow) -->
+  <g>
+    <!-- Left Vertical Data Bus / Stem -->
+    <path d="M 168 358 L 168 180 C 168 148 196 138 238 138 C 292 138 338 162 338 208 C 338 248 300 270 252 270 L 168 270" 
+          fill="none" stroke="url(#loop-grad)" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" />
+
+    <!-- Top Loop Inner Contrast Rail -->
+    <path d="M 168 220 L 168 180 C 168 160 188 152 225 152 C 270 152 318 172 318 208 C 318 236 288 254 248 254" 
+          fill="none" stroke="#f8fafc" stroke-width="4" stroke-linecap="round" opacity="0.4" />
+
+    <!-- Forward Dynamic Request Arrow (Top Right of Loop) -->
+    <path d="M 315 178 L 342 208 L 312 238" 
+          fill="none" stroke="#22d3ee" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" filter="url(#neon-glow)" />
+
+    <!-- Mock Response & Route Leg (Diagonal Thrust) -->
+    <path d="M 246 270 L 338 358" 
+          fill="none" stroke="url(#res-purple-grad)" stroke-width="22" stroke-linecap="round" />
+
+    <!-- Diagonal Leg Inner Light Rail -->
+    <path d="M 256 274 L 328 342" 
+          fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity="0.5" />
+
+    <!-- Dynamic Return / Routing Arrow Head (Bottom Right Leg) -->
+    <path d="M 318 358 L 346 366 L 338 336" 
+          fill="none" stroke="#c084fc" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" filter="url(#neon-glow)" />
+
+    <!-- Upward Request Stream Accent (Parallel to Stem) -->
+    <path d="M 136 330 L 136 210" 
+          fill="none" stroke="url(#req-cyan-grad)" stroke-width="5" stroke-linecap="round" stroke-dasharray="10 8" opacity="0.8" />
+    <polygon points="136,196 142,208 130,208" fill="#38bdf8" />
+
+    <!-- Bidirectional HTTP Exchange Curved Accents -->
+    <!-- Curved Forward Arrow (Top) -->
+    <path d="M 220 184 C 240 180 270 186 284 200" 
+          fill="none" stroke="#38bdf8" stroke-width="4.5" stroke-linecap="round" />
+    <!-- Curved Return Arrow (Bottom) -->
+    <path d="M 280 226 C 265 238 235 238 215 232" 
+          fill="none" stroke="#c084fc" stroke-width="4.5" stroke-linecap="round" />
+    <polyline points="222,228 215,232 222,238" fill="none" stroke="#c084fc" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+
+  <!-- Network Terminal Pulsing Nodes -->
+  <g filter="url(#neon-glow)">
+    <!-- Stem Base Node -->
+    <circle cx="168" cy="358" r="8" fill="#38bdf8" />
+    <circle cx="168" cy="358" r="4" fill="#ffffff" />
+
+    <!-- Stem Mid Node -->
+    <circle cx="168" cy="270" r="7" fill="#818cf8" />
+    <circle cx="168" cy="270" r="3" fill="#ffffff" />
+
+    <!-- Crest Node -->
+    <circle cx="238" cy="138" r="8" fill="#38bdf8" />
+    <circle cx="238" cy="138" r="4" fill="#ffffff" />
+
+    <!-- Center Intersection Node -->
+    <circle cx="248" cy="270" r="9" fill="#c084fc" />
+    <circle cx="248" cy="270" r="4.5" fill="#ffffff" />
+
+    <!-- Diagonal Endpoint Node -->
+    <circle cx="340" cy="360" r="8" fill="#a855f7" />
+    <circle cx="340" cy="360" r="4" fill="#ffffff" />
+
+    <!-- Auxiliary Data Packets -->
+    <circle cx="256" cy="90" r="4" fill="#38bdf8" opacity="0.9" />
+    <circle cx="422" cy="256" r="4" fill="#c084fc" opacity="0.9" />
+    <circle cx="90" cy="256" r="4" fill="#38bdf8" opacity="0.9" />
+  </g>
 </svg>

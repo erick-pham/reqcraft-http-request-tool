@@ -28,7 +28,8 @@ import {
   IconRewrite,
   IconHeaders,
   IconMockResponse,
-  IconMockRequest
+  IconMockRequest,
+  IconPill
 } from '../components/Icons';
 
 export default function Popup() {
@@ -110,6 +111,14 @@ export default function Popup() {
     setIsGlobalEnabled(nextVal);
     updateAndSaveData((prev) => ({ ...prev, isGlobalEnabled: nextVal }));
     showToast(nextVal ? 'Extension is ACTIVE' : 'Extension is PAUSED');
+  };
+
+  // Toggle Floating In-Page Status Pill
+  const isIndicatorEnabled = data.showIndicator !== false;
+  const handleToggleIndicator = () => {
+    const nextVal = !isIndicatorEnabled;
+    updateAndSaveData((prev) => ({ ...prev, showIndicator: nextVal }));
+    showToast(nextVal ? 'Floating In-Page Pill ENABLED' : 'Floating In-Page Pill HIDDEN');
   };
 
   // Active Profile getter
@@ -387,7 +396,7 @@ export default function Popup() {
         <div className="header-brand">
           <IconBrand size={22} className="brand-icon" />
           <div className="brand-text-block">
-            <span className="brand-title">ModReq & Res</span>
+            <span className="brand-title">ReqCraft</span>
             <span className="brand-badge-mv3">MV3</span>
           </div>
         </div>
@@ -402,6 +411,21 @@ export default function Popup() {
           >
             <IconPower size={14} />
             <span className="power-text">{isGlobalEnabled ? 'ON' : 'OFF'}</span>
+          </button>
+
+          {/* In-Page Indicator Toggle */}
+          <button
+            type="button"
+            className={`btn-indicator-toggle ${isIndicatorEnabled ? 'indicator-on' : 'indicator-off'}`}
+            onClick={handleToggleIndicator}
+            title={
+              isIndicatorEnabled
+                ? 'In-Page Status Pill is ON (Click to disable)'
+                : 'In-Page Status Pill is OFF (Click to enable)'
+            }
+          >
+            <IconPill size={14} />
+            <span className="indicator-tag-text">Pill</span>
           </button>
 
           {/* Theme Toggle */}
@@ -667,7 +691,7 @@ export default function Popup() {
         <span className="footer-tip">
           Tip: Supports Wildcard (*) and Regex capture groups ($1, $2).
         </span>
-        <span className="footer-version font-mono">v1.0.0 • MV3 Engine</span>
+        <span className="footer-version font-mono">v1.0.0 • ReqCraft Engine</span>
       </footer>
 
       {/* Rule Form Modal */}

@@ -241,6 +241,43 @@ html[data-theme='light'] {
   background: var(--bg-card);
 }
 
+.btn-indicator-toggle {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 30px;
+  padding: 0 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  transition: all 0.15s ease;
+}
+
+.btn-indicator-toggle:hover {
+  border-color: var(--border-base);
+  background: var(--bg-card);
+}
+
+.btn-indicator-toggle.indicator-on {
+  color: var(--accent-cyan);
+  border-color: rgba(56, 189, 248, 0.35);
+  background: rgba(56, 189, 248, 0.1);
+}
+
+.btn-indicator-toggle.indicator-off {
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+.indicator-tag-text {
+  font-size: 10px;
+  letter-spacing: 0.2px;
+}
+
 /* ==========================================================================
    Profile Bar Section
    ========================================================================== */

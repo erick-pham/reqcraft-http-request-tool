@@ -45,4 +45,5 @@ export interface StorageData {
   activeProfileId: string;
   isGlobalEnabled: boolean;
   theme: 'dark' | 'light';
+  showIndicator?: boolean;
 }

@@ -15,36 +15,27 @@ export const INITIAL_PROFILES: Profile[] = [
         type: "redirect",
         matchType: "wildcard",
         urlMatch: "https://api.production.com/v1/*",
-        redirectUrl: "http://localhost:8080/v1/$1",
+        redirectUrl: "http://localhost:8080/v1/",
       },
       {
         id: "rule_2",
-        name: "Rewrite Media to Staging CDN",
+        name: "Rewrite Base URL to Localhost",
         enabled: true,
         type: "rewrite",
         matchType: "regex",
-        urlMatch: "https://api-sandbox.360f.com/epos/epos-backend/(.*)",
+        urlMatch: "https://api.production.com/v1/(.*)",
         rewriteSubstitution: "http://localhost:3001/$1",
       },
       {
         id: "rule_3",
-        name: "Inject Auth & CORS Headers",
+        name: "Inject Headers",
         enabled: true,
         type: "modify_headers",
-        matchType: "exact",
-        urlMatch: "https://api.production.com/v1/user/auth",
+        matchType: "wildcard",
+        urlMatch: "https://api.production.com/v1/*",
         headers: {
-          request: [
-            {
-              key: "Authorization",
-              value: "Bearer dev_master_token_mock_9921",
-              action: "set",
-            },
-            { key: "X-Debug-Mode", value: "true", action: "add" },
-            { key: "Cache-Control", value: "", action: "remove" },
-          ],
+          request: [{ key: "X-Debug-Mode", value: "true", action: "set" }],
           response: [
-            { key: "Access-Control-Allow-Origin", value: "*", action: "set" },
             {
               key: "Access-Control-Allow-Methods",
               value: "GET,POST,PUT,DELETE,OPTIONS",
@@ -64,7 +55,7 @@ export const INITIAL_PROFILES: Profile[] = [
           statusCode: 200,
           headers: {
             "Content-Type": "application/json",
-            "X-Mock-Agent": "ModReqRes-MV3",
+            "X-Mock-Agent": "ReqCraft-MV3",
           },
           body: JSON.stringify(
             {
@@ -165,6 +156,7 @@ export const INITIAL_STORAGE: StorageData = {
   activeProfileId: "prof_dev_local",
   isGlobalEnabled: true,
   theme: "dark",
+  showIndicator: true,
 };
 
 const isChromeStorageAvailable = (): boolean => {
@@ -233,7 +225,7 @@ export function exportProfileToJson(profile: Profile): void {
   const a = document.createElement("a");
   a.href = url;
   const safeName = profile.name.toLowerCase().replace(/[^a-z0-9_-]/g, "_");
-  a.download = `modreq_${safeName}_rules.json`;
+  a.download = `reqcraft_${safeName}_rules.json`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);

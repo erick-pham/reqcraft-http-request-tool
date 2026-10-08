@@ -1,5 +1,7 @@
 {
-  "name": "mod-req-res",
+  "name": "reqcraft",
+  "displayName": "ReqCraft - HTTP Request & Mock Tool",
+  "description": "Intercept, redirect, rewrite REST API endpoints, mock request/response bodies, and modify HTTP headers with ease.",
   "private": true,
   "version": "1.0.0",
   "type": "module",
