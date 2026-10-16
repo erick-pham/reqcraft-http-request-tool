@@ -1,4 +1,5 @@
-export type RuleType = 'redirect' | 'rewrite' | 'modify_headers' | 'mock_response' | 'mock_request';
+export type RuleType =
+  'redirect' | 'rewrite' | 'modify_headers' | 'mock_response' | 'mock_request';
 
 export interface HeaderItem {
   id?: string;
@@ -14,7 +15,7 @@ export interface NetworkRule {
   type: RuleType;
   urlMatch: string; // Wildcard or Regex or Exact
   matchType: 'wildcard' | 'regex' | 'exact';
-  
+
   // Type-specific fields:
   redirectUrl?: string;
   rewriteSubstitution?: string;
@@ -24,12 +25,14 @@ export interface NetworkRule {
   };
   mockResponse?: {
     statusCode: number;
-    headers: Record<string, string>;
+    method: string;
+    headers?: Record<string, string>;
     body: string;
   };
   mockRequest?: {
     method: string;
     body: string;
+    headers?: Record<string, string>;
   };
 }
 
@@ -46,4 +49,9 @@ export interface StorageData {
   isGlobalEnabled: boolean;
   theme: 'dark' | 'light';
   showIndicator?: boolean;
+}
+
+export interface ChromeRuntimeMessage {
+  type: string;
+  payload: Record<string, string>;
 }

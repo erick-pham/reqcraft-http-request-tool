@@ -31,6 +31,12 @@
     "{{chrome}}.service_worker": "src/background.ts",
     "{{firefox}}.scripts": ["src/background.ts"]
   },
-  "permissions": ["storage", "declarativeNetRequest"],
+  "permissions": [
+    "storage",
+    "declarativeNetRequest",
+    "debugger",
+    "activeTab",
+    "tabs"
+  ],
   "host_permissions": ["<all_urls>"]
 }

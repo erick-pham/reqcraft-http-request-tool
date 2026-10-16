@@ -6,7 +6,7 @@ import {
   saveStorageData,
   exportProfileToJson,
   parseImportProfile,
-  INITIAL_STORAGE
+  INITIAL_STORAGE,
 } from '../services/storage';
 import { RuleCard } from '../components/RuleCard';
 import { RuleModal } from '../components/RuleModal';
@@ -29,25 +29,30 @@ import {
   IconHeaders,
   IconMockResponse,
   IconMockRequest,
-  IconPill
+  IconPill,
 } from '../components/Icons';
 
 export default function Popup() {
   const [data, setData] = useState<StorageData>(INITIAL_STORAGE);
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const [isGlobalEnabled, setIsGlobalEnabled] = useState<boolean>(true);
-  const [activeProfileId, setActiveProfileId] = useState<string>('prof_dev_local');
+  const [activeProfileId, setActiveProfileId] =
+    useState<string>('prof_dev_local');
 
   // Filter & Search states
   const [searchQuery, setSearchQuery] = useState('');
   const [typeFilter, setTypeFilter] = useState<RuleType | 'all'>('all');
-  const [statusFilter, setStatusFilter] = useState<'all' | 'enabled' | 'disabled'>('all');
+  const [statusFilter, setStatusFilter] = useState<
+    'all' | 'enabled' | 'disabled'
+  >('all');
 
   // Modal states
   const [isRuleModalOpen, setIsRuleModalOpen] = useState(false);
   const [editingRule, setEditingRule] = useState<NetworkRule | null>(null);
 
-  const [profileModalMode, setProfileModalMode] = useState<'create' | 'rename' | null>(null);
+  const [profileModalMode, setProfileModalMode] = useState<
+    'create' | 'rename' | null
+  >(null);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
   // Toast notification
@@ -63,7 +68,9 @@ export default function Popup() {
       setData(loaded);
       setTheme(loaded.theme || 'dark');
       setIsGlobalEnabled(loaded.isGlobalEnabled ?? true);
-      setActiveProfileId(loaded.activeProfileId || (loaded.profiles[0]?.id ?? ''));
+      setActiveProfileId(
+        loaded.activeProfileId || (loaded.profiles[0]?.id ?? '')
+      );
     });
   }, []);
 
@@ -75,7 +82,10 @@ export default function Popup() {
   // Handle click outside profile dropdown
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
         setIsProfileDropdownOpen(false);
       }
     };
@@ -86,7 +96,7 @@ export default function Popup() {
   // Show toast utility
   const showToast = (msg: string) => {
     setToastMessage(msg);
-    setTimeout(() => setToastMessage(null), 3000);
+    setTimeout(() => setToastMessage(null), 1000);
   };
 
   // Synchronize state and persist
@@ -118,7 +128,9 @@ export default function Popup() {
   const handleToggleIndicator = () => {
     const nextVal = !isIndicatorEnabled;
     updateAndSaveData((prev) => ({ ...prev, showIndicator: nextVal }));
-    showToast(nextVal ? 'Floating In-Page Pill ENABLED' : 'Floating In-Page Pill HIDDEN');
+    showToast(
+      nextVal ? 'Floating In-Page Pill ENABLED' : 'Floating In-Page Pill HIDDEN'
+    );
   };
 
   // Active Profile getter
@@ -129,7 +141,7 @@ export default function Popup() {
         id: 'default',
         name: 'Default Profile',
         isActive: true,
-        rules: []
+        rules: [],
       }
     );
   }, [data.profiles, activeProfileId]);
@@ -140,7 +152,11 @@ export default function Popup() {
       const updatedProfiles = prev.profiles.map((p) => {
         if (p.id === activeProfileId) {
           const nextActive = !p.isActive;
-          showToast(nextActive ? `Profile "${p.name}" ENABLED` : `Profile "${p.name}" DISABLED`);
+          showToast(
+            nextActive
+              ? `Profile "${p.name}" ENABLED`
+              : `Profile "${p.name}" DISABLED`
+          );
           return { ...p, isActive: nextActive };
         }
         return p;
@@ -162,12 +178,12 @@ export default function Popup() {
       id: `prof_${Date.now()}`,
       name,
       isActive: true,
-      rules: []
+      rules: [],
     };
     updateAndSaveData((prev) => ({
       ...prev,
       profiles: [...prev.profiles, newProfile],
-      activeProfileId: newProfile.id
+      activeProfileId: newProfile.id,
     }));
     setActiveProfileId(newProfile.id);
     showToast(`Profile "${name}" created`);
@@ -179,7 +195,7 @@ export default function Popup() {
       ...prev,
       profiles: prev.profiles.map((p) =>
         p.id === activeProfileId ? { ...p, name: newName } : p
-      )
+      ),
     }));
     showToast(`Profile renamed to "${newName}"`);
   };
@@ -200,7 +216,7 @@ export default function Popup() {
     updateAndSaveData((prev) => ({
       ...prev,
       profiles: remaining,
-      activeProfileId: nextActive
+      activeProfileId: nextActive,
     }));
     setActiveProfileId(nextActive);
     showToast(`Profile "${activeProfile.name}" deleted`);
@@ -240,7 +256,7 @@ export default function Popup() {
           if (p.id === activeProfileId) {
             return {
               ...p,
-              rules: [...p.rules, ...imported.rules]
+              rules: [...p.rules, ...imported.rules],
             };
           }
           return p;
@@ -248,7 +264,9 @@ export default function Popup() {
         return { ...prev, profiles: updated };
       });
 
-      showToast(`Successfully imported ${imported.rules.length} rules into current profile!`);
+      showToast(
+        `Successfully imported ${imported.rules.length} rules into current profile!`
+      );
     };
     reader.readAsText(file);
   };
@@ -261,11 +279,13 @@ export default function Popup() {
         if (p.id === activeProfileId) {
           return {
             ...p,
-            rules: p.rules.map((r) => (r.id === ruleId ? { ...r, enabled } : r))
+            rules: p.rules.map((r) =>
+              r.id === ruleId ? { ...r, enabled } : r
+            ),
           };
         }
         return p;
-      })
+      }),
     }));
   };
 
@@ -305,7 +325,7 @@ export default function Popup() {
       ...rule,
       id: `rule_${Date.now()}`,
       name: `${rule.name} (Copy)`,
-      enabled: false // initially disabled for safety
+      enabled: false, // initially disabled for safety
     };
 
     updateAndSaveData((prev) => ({
@@ -314,11 +334,11 @@ export default function Popup() {
         if (p.id === activeProfileId) {
           return {
             ...p,
-            rules: [duplicated, ...p.rules]
+            rules: [duplicated, ...p.rules],
           };
         }
         return p;
-      })
+      }),
     }));
     showToast(`Duplicated "${rule.name}"`);
   };
@@ -337,11 +357,11 @@ export default function Popup() {
         if (p.id === activeProfileId) {
           return {
             ...p,
-            rules: p.rules.filter((r) => r.id !== ruleId)
+            rules: p.rules.filter((r) => r.id !== ruleId),
           };
         }
         return p;
-      })
+      }),
     }));
     showToast('Rule deleted');
   };
@@ -407,7 +427,11 @@ export default function Popup() {
             type="button"
             className={`btn-global-power ${isGlobalEnabled ? 'power-on' : 'power-off'}`}
             onClick={handleToggleGlobal}
-            title={isGlobalEnabled ? 'Extension is active (Click to pause)' : 'Extension is paused'}
+            title={
+              isGlobalEnabled
+                ? 'Extension is active (Click to pause)'
+                : 'Extension is paused'
+            }
           >
             <IconPower size={14} />
             <span className="power-text">{isGlobalEnabled ? 'ON' : 'OFF'}</span>
@@ -433,7 +457,9 @@ export default function Popup() {
             type="button"
             className="btn-theme-toggle"
             onClick={handleToggleTheme}
-            title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            title={
+              theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'
+            }
           >
             {theme === 'dark' ? <IconSun size={15} /> : <IconMoon size={15} />}
           </button>
@@ -451,9 +477,13 @@ export default function Popup() {
               className="btn-profile-dropdown"
               onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
             >
-              <span className={`profile-status-dot ${activeProfile.isActive ? 'active' : 'inactive'}`} />
+              <span
+                className={`profile-status-dot ${activeProfile.isActive ? 'active' : 'inactive'}`}
+              />
               <span className="profile-active-name">{activeProfile.name}</span>
-              <span className="profile-rules-count font-mono">{activeProfile.rules.length} rules</span>
+              <span className="profile-rules-count font-mono">
+                {activeProfile.rules.length} rules
+              </span>
               <IconChevronDown size={14} className="dropdown-caret" />
             </button>
 
@@ -467,10 +497,14 @@ export default function Popup() {
                     onClick={() => handleSelectProfile(p.id)}
                   >
                     <div className="item-profile-info">
-                      <span className={`profile-status-dot ${p.isActive ? 'active' : 'inactive'}`} />
+                      <span
+                        className={`profile-status-dot ${p.isActive ? 'active' : 'inactive'}`}
+                      />
                       <span className="item-name">{p.name}</span>
                     </div>
-                    <span className="item-count font-mono">{p.rules.length} rules</span>
+                    <span className="item-count font-mono">
+                      {p.rules.length} rules
+                    </span>
                   </div>
                 ))}
               </div>
@@ -627,7 +661,9 @@ export default function Popup() {
         <div className="rules-stat-badge font-mono">
           <span className="stat-active">{enabledRulesCount}</span>
           <span className="stat-divider">/</span>
-          <span className="stat-total">{activeProfile.rules.length} active</span>
+          <span className="stat-total">
+            {activeProfile.rules.length} active
+          </span>
         </div>
       </section>
 
@@ -636,14 +672,18 @@ export default function Popup() {
         {!isGlobalEnabled && (
           <div className="warning-banner-disabled">
             <span className="dot-warning" />
-            <span>Extension is currently OFF. Network Rules will not be applied.</span>
+            <span>
+              Extension is currently OFF. Network Rules will not be applied.
+            </span>
           </div>
         )}
 
         {!activeProfile.isActive && isGlobalEnabled && (
           <div className="warning-banner-profile-disabled">
             <span className="dot-warning" />
-            <span>Profile "{activeProfile.name}" is paused. Click ACTIVE to enable.</span>
+            <span>
+              Profile "{activeProfile.name}" is paused. Click ACTIVE to enable.
+            </span>
           </div>
         )}
 
@@ -691,7 +731,9 @@ export default function Popup() {
         <span className="footer-tip">
           Tip: Supports Wildcard (*) and Regex capture groups ($1, $2).
         </span>
-        <span className="footer-version font-mono">v1.0.0 • ReqCraft Engine</span>
+        <span className="footer-version font-mono">
+          v1.0.0 • ReqCraft Engine
+        </span>
       </footer>
 
       {/* Rule Form Modal */}

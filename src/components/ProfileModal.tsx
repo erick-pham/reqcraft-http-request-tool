@@ -14,7 +14,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
   mode,
   currentName = '',
   onClose,
-  onConfirm
+  onConfirm,
 }) => {
   const [name, setName] = useState('');
   const [error, setError] = useState('');
@@ -42,7 +42,9 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
         <div className="modal-header">
           <div className="modal-title-group">
             <span className="modal-badge-mode">PROFILE</span>
-            <h3>{mode === 'create' ? 'Create New Profile' : 'Rename Profile'}</h3>
+            <h3>
+              {mode === 'create' ? 'Create New Profile' : 'Rename Profile'}
+            </h3>
           </div>
           <button type="button" className="btn-icon-close" onClick={onClose}>
             <IconX size={18} />
@@ -50,7 +52,11 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
         </div>
 
         <form onSubmit={handleSubmit} className="modal-form-content">
-          {error && <div className="alert-error"><span>{error}</span></div>}
+          {error && (
+            <div className="alert-error">
+              <span>{error}</span>
+            </div>
+          )}
           <div className="form-group">
             <label className="field-label">Profile Name</label>
             <input
@@ -62,7 +68,8 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
               autoFocus
             />
             <span className="field-hint">
-              Each Profile maintains an isolated rule set suited for specific testing environments.
+              Each Profile maintains an isolated rule set suited for specific
+              testing environments.
             </span>
           </div>
 
@@ -71,7 +78,8 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
               Cancel
             </button>
             <button type="submit" className="btn-save">
-              <IconCheck size={16} /> {mode === 'create' ? 'Create Profile' : 'Save Changes'}
+              <IconCheck size={16} />{' '}
+              {mode === 'create' ? 'Create Profile' : 'Save Changes'}
             </button>
           </div>
         </form>

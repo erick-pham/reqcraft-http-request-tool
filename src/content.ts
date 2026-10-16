@@ -1,6 +1,7 @@
+import { ChromeRuntimeMessage } from './types';
 import {
   initFloatingIndicator,
-  updateFloatingIndicator
+  updateFloatingIndicator,
 } from './utils/floatingIndicator';
 
 const STORAGE_KEY = 'mod_req_res_config';
@@ -24,14 +25,15 @@ async function syncRulesAndIndicator(): Promise<void> {
     const enabledRules = allProfileRules.filter((r: any) => r.enabled);
 
     // Active rules sent to page hook (injected.ts) only when globally enabled & profile is active
-    const activeRulesForHook = isGlobalEnabled && isProfileActive ? enabledRules : [];
+    const activeRulesForHook =
+      isGlobalEnabled && isProfileActive ? enabledRules : [];
 
     // Send updated rules to MAIN world injected script via postMessage
     window.postMessage(
       {
         source: 'REQCRAFT_EXT',
         type: 'UPDATE_RULES',
-        rules: activeRulesForHook
+        rules: activeRulesForHook,
       },
       '*'
     );
@@ -42,7 +44,7 @@ async function syncRulesAndIndicator(): Promise<void> {
       profileName: activeProfile?.name || 'Default',
       isProfileActive,
       activeRulesCount: enabledRules.length,
-      showIndicator
+      showIndicator,
     });
   } catch (err) {
     console.error('[ReqCraft Content] Sync error:', err);
@@ -53,7 +55,8 @@ async function syncRulesAndIndicator(): Promise<void> {
 window.addEventListener('message', (event) => {
   if (event.source !== window) return;
   if (
-    (event.data?.source === 'REQCRAFT_PAGE' || event.data?.source === 'MOD_REQ_RES_PAGE') &&
+    (event.data?.source === 'REQCRAFT_PAGE' ||
+      event.data?.source === 'MOD_REQ_RES_PAGE') &&
     event.data?.type === 'GET_RULES'
   ) {
     syncRulesAndIndicator();
@@ -74,3 +77,14 @@ initFloatingIndicator();
 
 // 4. Initial synchronization
 syncRulesAndIndicator();
+
+chrome.runtime.onMessage.addListener((message: ChromeRuntimeMessage) => {
+  if (message.type === 'DEBUGGER_LOG') {
+    console.log(
+      `%c[ReqCraft]%c ${message.payload.ruleName || 'Mock Request/Response Log'}`,
+      'color: #10b981; font-weight: bold;',
+      'color: inherit;'
+    );
+    console.log(message.payload);
+  }
+});

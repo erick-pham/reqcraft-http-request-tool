@@ -19,7 +19,7 @@ let currentState: IndicatorState = {
   profileName: 'Default',
   isProfileActive: true,
   activeRulesCount: 0,
-  showIndicator: true
+  showIndicator: true,
 };
 
 /**
@@ -292,8 +292,8 @@ async function toggleCurrentProfileActive(): Promise<void> {
       [STORAGE_KEY]: {
         ...data,
         isGlobalEnabled: updatedGlobal,
-        profiles: updatedProfiles
-      }
+        profiles: updatedProfiles,
+      },
     });
   } catch (err) {
     console.error('[ReqCraft] Failed to toggle profile from indicator:', err);
@@ -426,13 +426,16 @@ function renderIndicator(): void {
 
   // 3. Check if active or was active
   const isCurrentlyActive =
-    currentState.isGlobalEnabled && currentState.isProfileActive && currentState.activeRulesCount > 0;
+    currentState.isGlobalEnabled &&
+    currentState.isProfileActive &&
+    currentState.activeRulesCount > 0;
 
   if (isCurrentlyActive) {
     sessionStorage.setItem(WAS_ACTIVE_SESSION_KEY, 'true');
   }
 
-  const wasActiveInSession = sessionStorage.getItem(WAS_ACTIVE_SESSION_KEY) === 'true';
+  const wasActiveInSession =
+    sessionStorage.getItem(WAS_ACTIVE_SESSION_KEY) === 'true';
 
   // If never active in this session and currently inactive, stay hidden to avoid cluttering normal pages
   if (!isCurrentlyActive && !wasActiveInSession) {
@@ -518,11 +521,13 @@ function renderIndicator(): void {
     toggleCurrentProfileActive();
   });
 
-  shadowRoot.getElementById('rc-minimize-btn')?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    sessionStorage.setItem(MINIMIZED_SESSION_KEY, 'true');
-    renderIndicator();
-  });
+  shadowRoot
+    .getElementById('rc-minimize-btn')
+    ?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      sessionStorage.setItem(MINIMIZED_SESSION_KEY, 'true');
+      renderIndicator();
+    });
 
   shadowRoot.getElementById('rc-close-btn')?.addEventListener('click', (e) => {
     e.stopPropagation();

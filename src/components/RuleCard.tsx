@@ -8,7 +8,7 @@ import {
   IconMockRequest,
   IconEdit,
   IconCopy,
-  IconTrash
+  IconTrash,
 } from './Icons';
 
 interface RuleCardProps {
@@ -21,43 +21,49 @@ interface RuleCardProps {
 
 const TYPE_CONFIG: Record<
   RuleType,
-  { label: string; icon: React.ReactNode; bgClass: string; textClass: string; badgeText: string }
+  {
+    label: string;
+    icon: React.ReactNode;
+    bgClass: string;
+    textClass: string;
+    badgeText: string;
+  }
 > = {
   redirect: {
     label: 'Redirect',
     icon: <IconRedirect size={14} />,
     bgClass: 'badge-redirect',
     textClass: 'type-redirect',
-    badgeText: 'REDIRECT'
+    badgeText: 'REDIRECT',
   },
   rewrite: {
     label: 'Re-write',
     icon: <IconRewrite size={14} />,
     bgClass: 'badge-rewrite',
     textClass: 'type-rewrite',
-    badgeText: 'REWRITE'
+    badgeText: 'REWRITE',
   },
   modify_headers: {
     label: 'Headers',
     icon: <IconHeaders size={14} />,
     bgClass: 'badge-headers',
     textClass: 'type-headers',
-    badgeText: 'HEADERS'
+    badgeText: 'HEADERS',
   },
   mock_response: {
     label: 'Mock Response',
     icon: <IconMockResponse size={14} />,
     bgClass: 'badge-mock-res',
     textClass: 'type-mock-res',
-    badgeText: 'MOCK RES'
+    badgeText: 'MOCK RES',
   },
   mock_request: {
     label: 'Mock Request',
     icon: <IconMockRequest size={14} />,
     bgClass: 'badge-mock-req',
     textClass: 'type-mock-req',
-    badgeText: 'MOCK REQ'
-  }
+    badgeText: 'MOCK REQ',
+  },
 };
 
 export const RuleCard: React.FC<RuleCardProps> = ({
@@ -65,7 +71,7 @@ export const RuleCard: React.FC<RuleCardProps> = ({
   onToggle,
   onEdit,
   onDuplicate,
-  onDelete
+  onDelete,
 }) => {
   const config = TYPE_CONFIG[rule.type] || TYPE_CONFIG.redirect;
 
@@ -76,14 +82,18 @@ export const RuleCard: React.FC<RuleCardProps> = ({
         return (
           <div className="rule-summary-line">
             <span className="summary-label">Target:</span>
-            <span className="summary-value font-mono">{rule.redirectUrl || 'N/A'}</span>
+            <span className="summary-value font-mono">
+              {rule.redirectUrl || 'N/A'}
+            </span>
           </div>
         );
       case 'rewrite':
         return (
           <div className="rule-summary-line">
             <span className="summary-label">Replace:</span>
-            <span className="summary-value font-mono">{rule.rewriteSubstitution || 'N/A'}</span>
+            <span className="summary-value font-mono">
+              {rule.rewriteSubstitution || 'N/A'}
+            </span>
           </div>
         );
       case 'modify_headers': {
@@ -93,8 +103,12 @@ export const RuleCard: React.FC<RuleCardProps> = ({
           <div className="rule-summary-line">
             <span className="summary-label">Headers:</span>
             <span className="summary-value">
-              {reqCount > 0 && <span className="header-count-pill">{reqCount} Request</span>}
-              {resCount > 0 && <span className="header-count-pill">{resCount} Response</span>}
+              {reqCount > 0 && (
+                <span className="header-count-pill">{reqCount} Request</span>
+              )}
+              {resCount > 0 && (
+                <span className="header-count-pill">{resCount} Response</span>
+              )}
               {reqCount === 0 && resCount === 0 && 'No headers'}
             </span>
           </div>
@@ -104,11 +118,15 @@ export const RuleCard: React.FC<RuleCardProps> = ({
         return (
           <div className="rule-summary-line">
             <span className="summary-label">Mock HTTP:</span>
-            <span className={`status-code-tag status-${String(rule.mockResponse?.statusCode || 200)[0]}xx`}>
+            <span
+              className={`status-code-tag status-${String(rule.mockResponse?.statusCode || 200)[0]}xx`}
+            >
               {rule.mockResponse?.statusCode || 200}
             </span>
             <span className="summary-sub">
-              {rule.mockResponse?.body ? `${rule.mockResponse.body.slice(0, 45)}...` : 'Empty body'}
+              {rule.mockResponse?.body
+                ? `${rule.mockResponse.body.slice(0, 45)}...`
+                : 'Empty body'}
             </span>
           </div>
         );
@@ -116,9 +134,13 @@ export const RuleCard: React.FC<RuleCardProps> = ({
         return (
           <div className="rule-summary-line">
             <span className="summary-label">Method:</span>
-            <span className="method-tag">{rule.mockRequest?.method || 'POST'}</span>
+            <span className="method-tag">
+              {rule.mockRequest?.method || 'POST'}
+            </span>
             <span className="summary-sub">
-              {rule.mockRequest?.body ? `${rule.mockRequest.body.slice(0, 45)}...` : 'Body override'}
+              {rule.mockRequest?.body
+                ? `${rule.mockRequest.body.slice(0, 45)}...`
+                : 'Body override'}
             </span>
           </div>
         );
@@ -128,10 +150,15 @@ export const RuleCard: React.FC<RuleCardProps> = ({
   };
 
   return (
-    <div className={`rule-item-card ${rule.enabled ? 'is-enabled' : 'is-disabled'}`}>
+    <div
+      className={`rule-item-card ${rule.enabled ? 'is-enabled' : 'is-disabled'}`}
+    >
       {/* Col 1: Switch Toggle */}
       <div className="rule-card-toggle">
-        <label className="toggle-switch-sm" title={rule.enabled ? 'Disable rule' : 'Enable rule'}>
+        <label
+          className="toggle-switch-sm"
+          title={rule.enabled ? 'Disable rule' : 'Enable rule'}
+        >
           <input
             type="checkbox"
             checked={rule.enabled}

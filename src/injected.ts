@@ -1,11 +1,14 @@
 import { NetworkRule } from './types';
+import { wildcardToRegex } from './utils/common';
 
 (function () {
   let activeRules: NetworkRule[] = [];
 
   // 1. Attempt to load cached rules from sessionStorage for instant startup
   try {
-    const cached = sessionStorage.getItem('__REQCRAFT_RULES__') || sessionStorage.getItem('__MOD_REQ_RES_RULES__');
+    const cached =
+      sessionStorage.getItem('__REQCRAFT_RULES__') ||
+      sessionStorage.getItem('__MOD_REQ_RES_RULES__');
     if (cached) {
       activeRules = JSON.parse(cached);
     }
@@ -16,10 +19,16 @@ import { NetworkRule } from './types';
   // 2. Listen for rule updates from Content Script via window.postMessage
   window.addEventListener('message', (event) => {
     if (event.source !== window) return;
-    if (event.data?.source === 'REQCRAFT_EXT' && event.data?.type === 'UPDATE_RULES') {
+    if (
+      event.data?.source === 'REQCRAFT_EXT' &&
+      event.data?.type === 'UPDATE_RULES'
+    ) {
       activeRules = event.data.rules || [];
       try {
-        sessionStorage.setItem('__REQCRAFT_RULES__,', JSON.stringify(activeRules));
+        sessionStorage.setItem(
+          '__REQCRAFT_RULES__,',
+          JSON.stringify(activeRules)
+        );
       } catch {
         // ignore
       }
@@ -34,15 +43,7 @@ import { NetworkRule } from './types';
   // 3. Request rules from Content Script immediately on startup
   window.postMessage({ source: 'REQCRAFT_PAGE', type: 'GET_RULES' }, '*');
 
-  // 4. Helper to convert Wildcard pattern to RegExp
-  function wildcardToRegex(pattern: string): RegExp {
-    const escaped = pattern
-      .replace(/[-[\]{}()+?.,\\^$|#\s]/g, '\\$&')
-      .replace(/\*/g, '(.*)');
-    return new RegExp(escaped);
-  }
-
-  // 5. Apply URL Rewrite based on active NetworkRules
+  // 4. Apply URL Rewrite based on active NetworkRules
   function applyRewriteUrl(url: string): string {
     if (!activeRules || activeRules.length === 0) return url;
 
@@ -79,7 +80,11 @@ import { NetworkRule } from './types';
             isMatched = true;
           }
         } catch (err) {
-          console.error(`[ReqCraft] Regex error in rule "${rule.name}":`, pattern, err);
+          console.error(
+            `[ReqCraft] Regex error in rule "${rule.name}":`,
+            pattern,
+            err
+          );
         }
       } else {
         // Wildcard
@@ -98,7 +103,10 @@ import { NetworkRule } from './types';
             }
           }
         } catch (err) {
-          console.error(`[ReqCraft] Wildcard error in rule "${rule.name}":`, err);
+          console.error(
+            `[ReqCraft] Wildcard error in rule "${rule.name}":`,
+            err
+          );
         }
       }
 
@@ -116,7 +124,7 @@ import { NetworkRule } from './types';
     return currentUrl;
   }
 
-  // 6. Override window.fetch
+  // 5. Override window.fetch
   const originalFetch = window.fetch;
   window.fetch = async function (input: RequestInfo | URL, init?: RequestInit) {
     try {
@@ -147,7 +155,7 @@ import { NetworkRule } from './types';
     return originalFetch.call(this, input, init);
   };
 
-  // 7. Override XMLHttpRequest (Axios / jQuery / standard XHR)
+  // 6. Override XMLHttpRequest (Axios / jQuery / standard XHR)
   const originalOpen = XMLHttpRequest.prototype.open;
   XMLHttpRequest.prototype.open = function (
     method: string,
@@ -169,5 +177,7 @@ import { NetworkRule } from './types';
     return originalOpen.call(this, method, url, async, username, password);
   };
 
-  console.log('[ReqCraft] Injected script initialized and successfully hooked window.fetch & XMLHttpRequest!');
+  console.log(
+    '[ReqCraft] Injected script initialized and successfully hooked window.fetch & XMLHttpRequest!'
+  );
 })();
