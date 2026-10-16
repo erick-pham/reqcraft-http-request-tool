@@ -66,7 +66,7 @@ async function updateDeclarativeNetRules(): Promise<void> {
         currentWindow: true,
       });
 
-      if (tab && tab.id) {
+      if (tab && tab.id && !isRestrictedUrl(tab.url)) {
         await handleDebuggerDetach(tab.id);
       }
       return;
